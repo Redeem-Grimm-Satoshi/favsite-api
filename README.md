@@ -1,6 +1,6 @@
 # FavSite API
 
-A production-ready backend service for managing user favorites with RESTful API endpoints and CLI utilities.
+A production-ready backend service for managing user favorite websites with RESTful API endpoints and CLI utilities.
 
 ## Architecture Overview
 
