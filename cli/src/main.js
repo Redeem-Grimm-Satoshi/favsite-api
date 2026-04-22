@@ -18,8 +18,7 @@ const command = args[0];
 const favorite =args[1];
 const url =args[2];
 
-let db;
-const dbPath='favorites.db';
+const favorites=await getFavorites();
 
 
 
@@ -96,7 +95,7 @@ function rm(favorite){
 }
 
 const ls=async ()=>{
-    const favorites=await getFavorites();
+    
     console.log('All favorites');
     favorites.forEach((favorite)=>{
         console.log(`${favorite.name}: ${favorite.url}`);

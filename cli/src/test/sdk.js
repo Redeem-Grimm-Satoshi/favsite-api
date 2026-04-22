@@ -1,3 +1,7 @@
+
+/*
+import * as SDK from '../lib/sdk.js';
+
 try {
     
     const result=await addFavorite('examplle','example');
@@ -5,3 +9,5 @@ try {
 } catch (error) {
     console.error('Error:', error.message);
 }
+
+*/

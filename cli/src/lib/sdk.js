@@ -36,18 +36,10 @@ export const replaceFavorite=async(id,newFav)=>{
     const response=await fetch(`${baseURL}/favorites/${id}`, {
         method:'PUT',
         headers:{ 'Content-Type':'application/json' },
-        body:newFav
+        body:JSON.stringify(newFav)
     });
-    
-
+    return response.status;
 };
 
 
 
-try {
-    
-    const result=await addFavorite('examplle','example');
-    console.log(result);
-} catch (error) {
-    console.error('Error:', error.message);
-}
