@@ -1,0 +1,25 @@
+{
+  "name": "redeem-cli",
+  "version": "1.0.0",
+  "description": "Saves and Opens your favourite websites",
+  "files": [
+    "src/main.js"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bin": {
+    "favs": "src/main.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^17.4.1",
+    "open": "^11.0.0",
+    "sqlite3": "^6.0.1"
+  }
+}
