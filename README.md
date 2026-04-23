@@ -18,6 +18,7 @@ This monorepo contains multiple service layers:
 - **Framework**: Express.js 5.x
 - **Database**: SQLite3 via better-sqlite3
 - **Process Management**: Nodemon (development)
+- **Frontend**: React.js
 - **Module Systems**: Mixed CommonJS and ES6 modules
 
 ## Project Structure
