@@ -2,7 +2,7 @@
 import {exec} from 'child_process';
 import open, { apps } from 'open';
 import dotenv from 'dotenv';
-import fs from 'fs';
+
 
 import {
     addFavorite,deleteFavorite,getFavorite,getFavorites,replaceFavorite
@@ -10,7 +10,7 @@ import {
 
 
 
-
+// Load environment variables from .env file
 dotenv.config();
 
 const args = process.argv.slice(2);
@@ -22,7 +22,7 @@ const favorites=await getFavorites();
 
 
 
-
+// Function to check the BROWSER environment variable and return the corresponding app name for the 'open' package
 function checkBrowser(){
     const browser = process.env.BROWSER;
     if (!browser) {
@@ -43,7 +43,7 @@ function checkBrowser(){
 }
 
 
-
+// Function to display the menu of available commands
 function displayMenu(){
     console.log('open <favourite>      : Open a saved favourite.');
     console.log('ls                    : List all saved favourites.');
@@ -52,16 +52,16 @@ function displayMenu(){
     
 }
 
-async function openFav(favorite){
-    const row=db.prepare('SELECT * FROM favorites WHERE name = ?').get(favorite);
-    
-    if (!row) {
-        console.log('favorite', favorite, 'does not exist.');
+// Function to open a favorite URL in the default browser or the browser specified in the BROWSER environment variable
+async function openFav(name){
+    const favToOpen=favorites.find((fav)=>fav.name === name);
+
+    if(!favToOpen){
+        console.log(`Favorite ${name} does not exist.`);
         process.exit(1);
-        return;
     }
     
-    const url = row.url;
+    const url = favToOpen.url;
     console.log('opening', url);
     
     try {
@@ -77,21 +77,32 @@ async function openFav(favorite){
 }
 
 
-
-function add(favorite, url){
+// Function to add a new favorite URL with the specified name
+const add=async (name, url) => {
     
-    db.prepare('INSERT INTO favorites (name, url) VALUES (?, ?)').run(
-        favorite,
-        url
-    );
+    const id = await addFavorite(name,url);
+
+    if(!id){
+        console.log(`Failed to add favorite ${name}.`);
+        process.exit(1);
+    }
+
+
 
     console.log('Adding', favorite, 'with URL', url);
 
 }
 
-function rm(favorite){
-    db.prepare('DELETE FROM favorites WHERE name = ?').run(favorite);
-    console.log('Removing', favorite);
+// Function to remove a favorite URL by name
+const rm=async (name) => {
+    const favToDelete=favorites.find((fav)=>fav.name === name);
+
+    if(!favToDelete){
+        console.log(`Favorite ${name} does not exist.`);
+        process.exit(1);
+    }
+    await deleteFavorite(favToDelete.id);
+    console.log('Removing', name);
 }
 
 const ls=async ()=>{
@@ -104,7 +115,7 @@ const ls=async ()=>{
 }
 
 
-
+// Main function to handle command-line arguments and execute the corresponding actions
 (async () => {
 if(!command||command === 'help'){
     displayMenu();
