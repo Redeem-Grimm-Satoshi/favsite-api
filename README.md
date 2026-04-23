@@ -8,6 +8,7 @@ This monorepo contains multiple service layers:
 
 - **`/api`** - Express.js REST API service with SQLite persistence
 - **`/cli`** - Command-line interface for database management and utilities
+- **`/client`** - Display respons from API
 - **`/src`** - Core HTTP server implementations and middleware
 - **`Functions.js`** - Shared utility functions and helpers
 
